@@ -1,3 +1,3 @@
 FROM alpine
 COPY quickstart.sh /
-CMD ["index.html"]
+CMD ["/quickstart.sh"]
