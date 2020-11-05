@@ -6,7 +6,7 @@ jobs:
       - checkout
       - node/install:
           install-yarn: true
-      - run: apt install apache2
+      - run: sudo apt install apache2
 orbs:
   node: circleci/node@4.1.0
 version: 2.1
