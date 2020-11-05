@@ -1,18 +1,15 @@
-version: 2.1
-orbs:
-  gcp-gcr: circleci/gcp-gcr@0.6.1
-  cloudrun: circleci/gcp-cloud-run@1.0.0
-  node: circleci/node@4.1.0
 jobs:
-  build_test:
+  install-node-example:
     docker:
       - image: 'cimg/base:stable'
-      steps:
-        - checkout
-        - node/install:
-            install-yarn: true
-        - run: node --version
-     
+    steps:
+      - checkout
+      - node/install:
+          install-yarn: true
+      - run: node --version
+orbs:
+  node: circleci/node@4.1.0
+version: 2.1
 workflows:
   test_my_app:
     jobs:
