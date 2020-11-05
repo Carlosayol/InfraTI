@@ -1,28 +1,27 @@
-jobs:
-  build_and_deploy_gke:
-    docker:
-      - image: 'cimg/base:stable'
-    steps:
-      - checkout
-      - cloudrun/init
-      - cloudrun/create_gke_cluster:
-          cluster-name: 'example-cluster-${CIRCLE_BUILD_NUM}'
-          enable-stackdriver-kubernetes: true
-          machine-type: n1-standard-4
-          scopes: cloud-platform
-          zone: us-east1
-      - cloudrun/build:
-          tag: 'gcr.io/${GOOGLE_PROJECT_ID}/test-${CIRCLE_SHA1}'
-      - cloudrun/deploy:
-          cluster: 'example-cluster-${CIRCLE_BUILD_NUM}'
-          cluster-location: us-east1
-          image: 'gcr.io/${GOOGLE_PROJECT_ID}/test-${CIRCLE_SHA1}'
-          platform: gke
-          service-name: 'example-service-${CIRCLE_BUILD_NUM}'
-orbs:
-  cloudrun: circleci/gcp-cloud-run@x.y
 version: 2.1
+jobs:
+  #build:
+    #...
+  deploy:
+    machine:
+      enabled: true
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "c1:9c:8a:41:1a:38:42:16:b3:d1:1e:48:ac:c6:30:4d"
+      - run:
+          name: Deploy Over SSH
+          command: |
+             ssh $SSH_USER@$SSH_HOST "cd hello-circleci && git pull && echo hello " 
+
 workflows:
-  build_and_deploy_to_gke_workflow:
+  version: 2
+  build-and-deploy:
     jobs:
-      - build_and_deploy_gke
+      #- build
+      - deploy:
+          #requires:
+          #  - build # only deploy once build job has completed
+          filters:
+            branches:
+              only: master # only deploy on the master branch
