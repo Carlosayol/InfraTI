@@ -1,27 +1,58 @@
 version: 2.1
+orbs:
+  gcp-gcr: circleci/gcp-gcr@0.6.1
+  cloudrun: circleci/gcp-cloud-run@1.0.0
 jobs:
-  #build:
-    #...
-  deploy:
-    machine:
-      enabled: true
+  build_test:
+    docker:
+      - image: circleci/python:3.7.4
     steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "c1:9c:8a:41:1a:38:42:16:b3:d1:1e:48:ac:c6:30:4d"
+      - checkout
       - run:
-          name: Deploy Over SSH
+          name: Install Python Dependencies
           command: |
-             ssh $SSH_USER@$SSH_HOST "cd hello-circleci && git pull && echo hello " 
-
+            echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV && source $BASH_ENV
+            pip install --user -r requirements.txt
+      - run:
+          name: Run Tests
+          command: |
+            pytest
+  build_push_image_cloud_run_mangaged:
+    docker:
+      - image: circleci/python:3.7.4
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: false
+      - run:
+          name: Build app binary and Docker image
+          command: |
+            echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV
+            echo ${GCP_PROJECT_KEY} | base64 --decode --ignore-garbage > $HOME/gcloud-service-key.json
+            echo 'export GOOGLE_CLOUD_KEYS=$(cat $HOME/gcloud-service-key.json)' >> $BASH_ENV
+            echo 'export TAG=${CIRCLE_SHA1}' >> $BASH_ENV
+            echo 'export IMAGE_NAME=$CIRCLE_PROJECT_REPONAME' >> $BASH_ENV && source $BASH_ENV
+            pip install --user -r requirements.txt
+            pyinstaller -F hello_world.py
+            docker build -t us.gcr.io/$GOOGLE_PROJECT_ID/$IMAGE_NAME -t us.gcr.io/$GOOGLE_PROJECT_ID/$IMAGE_NAME:$TAG .
+      - gcp-gcr/gcr-auth:
+          gcloud-service-key: GOOGLE_CLOUD_KEYS
+          google-project-id: GOOGLE_PROJECT_ID
+          google-compute-zone: GOOGLE_COMPUTE_ZONE
+      - gcp-gcr/push-image:
+          google-project-id: GOOGLE_PROJECT_ID
+          registry-url: "us.gcr.io"
+          image: $IMAGE_NAME
+      - cloudrun/deploy:
+          platform: "managed"
+          image: "us.gcr.io/$GOOGLE_PROJECT_ID/$IMAGE_NAME"
+          service-name: "orb-gcp-cloud-run"
+          region: $GOOGLE_COMPUTE_ZONE
+          unauthenticated: true
 workflows:
-  version: 2
-  build-and-deploy:
+  build_test_deploy:
     jobs:
-      #- build
-      - deploy:
-          #requires:
-          #  - build # only deploy once build job has completed
-          filters:
-            branches:
-              only: master # only deploy on the master branch
+      - build_test
+      - build_push_image_cloud_run_mangaged:
+          requires:
+            - build_test
