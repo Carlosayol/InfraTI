@@ -13,10 +13,7 @@ jobs:
           command: |
             echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV && source $BASH_ENV
             pip install --user --upgrade pip
-      - run:
-          name: Run Tests
-          command: |
-            pytest
+     
   build_push_image_cloud_run_mangaged:
     docker:
       - image: circleci/python:3.7.4
