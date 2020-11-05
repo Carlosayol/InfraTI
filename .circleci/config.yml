@@ -1,48 +1,51 @@
 version: 2.1
-jobs:
-  build:
-    working_directory: ~/workspace
-    docker:
-      - image: circleci/php:7.2-stretch-node-browsers
-    steps:
-      - checkout
-      - run: |
-          cp .env.example .env &&
-          php artisan key:generate
+orbs:
+  gcp-gcr: circleci/gcp-gcr@0.6.1
+  cloudrun: circleci/gcp-cloud-run@1.0.0
+  jobs:
+    build:
+      working_directory: ~/workspace
+      docker:
+        - image: circleci/php:7.2-stretch-node-browsers
+      steps:
+        - checkout
+        - run: |
+            cp .env.example .env &&
+            php artisan key:generate
+        
+        - persist_to_workspace:
+            root: .
+            paths:
+              - .
+    deploy:
+      working_directory: ~/workspace
+      docker:
+        - image: google/cloud-sdk
       
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-  deploy:
-    working_directory: ~/workspace
-    docker:
-      - image: google/cloud-sdk
-    
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-          name: Service Account Key
-          command: echo ${GCLOUD_SERVICE_KEY} > ${HOME}/gcloud-service-key.json
-      - run:
-          name: Set gcloud command
-          command: |
-            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
-            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-      - run:
-          name: deploy to Google App Engine
-          command: |
-            gcloud app deploy app.yaml
-workflows:
-  version: 2
-  build:
-    jobs:
-      - build
-      - deploy:
-        context: gcp
-        requires:
-          - build
-        filters:
-          branches:
-            only: master
+      steps:
+        - attach_workspace:
+            at: .
+        - run:
+            name: Service Account Key
+            command: echo ${GCLOUD_SERVICE_KEY} > ${HOME}/gcloud-service-key.json
+        - run:
+            name: Set gcloud command
+            command: |
+              gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+              gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+        - run:
+            name: deploy to Google App Engine
+            command: |
+              gcloud app deploy app.yaml
+              
+  workflows:
+    build:
+      jobs:
+        - build
+        - deploy:
+          context: gcp
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
