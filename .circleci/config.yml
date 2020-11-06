@@ -6,7 +6,7 @@ jobs:
     environment:
       - PROJECT_NAME: "infraestructura-TI"
       - GOOGLE_COMPUTE_ZONE: "us-central1-a"
-      - VM_NAME: "nfs"
+      - VM_NAME: "arquitectura"
     steps:
       - checkout
       - add_ssh_keys:
