@@ -1,16 +1,34 @@
+version: 2.1
 jobs:
-  install-node-example:
+  Development:
     docker:
-      - image: 'cimg/base:stable'
+      - image: google/cloud-sdk
+    environment:
+      - PROJECT_NAME: "infraestructura-TI"
+      - GOOGLE_PROJECT_ID: "infraestructura-ti-286120"
+      - GOOGLE_COMPUTE_ZONE: "us-central1-a"
+      - VM_NAME: "nfs"
     steps:
       - checkout
-      - node/install:
-          install-yarn: true
-      - run: sudo apt install nginx
-orbs:
-  node: circleci/node@4.1.0
-version: 2.1
+      - run: 
+          name: Setup Google Cloud SDK
+          command: |
+            apt-get install -qq -y gettext
+            echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
+            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json	
+            gcloud compute ssh --project ${GOOGLE_PROJECT_ID} --zone ${GOOGLE_COMPUTE_ZONE} ${VM_NAME}
+      - run: 
+          name: Test
+          command: |
+          touch hola.txt
+            
+  
 workflows:
-  test_my_app:
+  version: 2.1
+  build:
     jobs:
-      - install-node-example
+      - Development:
+          filters:
+            branches:
+              only: master
+          
