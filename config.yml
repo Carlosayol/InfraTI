@@ -8,10 +8,11 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "c1:9c:8a:41:1a:38:42:16:b3:d1:1e:48:ac:c6:30:4d"
+            - "ae:cb:17:39:c0:f1:a6:ca:1c:79:f3:82:97:a5:d8:57"
       - run:
           name: Deploy Over SSH
-          
+          command: |
+             ssh $SSH_USER@$SSH_HOST "cd hello-circleci && git pull && echo hello " 
 
 workflows:
   version: 2
