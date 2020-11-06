@@ -20,7 +20,7 @@ jobs:
       - run: 
           name: Test
           command: |
-          touch hola.txt
+          cd ${HOME}/hola touch hola.txt
             
   
 workflows:
