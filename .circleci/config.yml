@@ -20,11 +20,10 @@ jobs:
       - run: 
           name: Test
           command: |
-          cd ${HOME}/hola touch hola.txt
+          cd ${HOME}/hola 
             
   
 workflows:
-  version: 2.1
   build:
     jobs:
       - Development:
