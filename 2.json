@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "infraestructura-ti-286120",
+  "private_key_id": "78cd70ab70579d9e9a4e94c2297472f1288dcd07",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC4TafHzVPezvvO\nMLUARUqnyhX9KjDuZwbZxQtrgviC+RyyfD7TdvRcByjCy/TC+nQab2kXwlQUW6yb\nstMHPb+pQaFcd0ooQKoZBW+b/2XOsRO8M+nALYGKBOI1m2xEyiJAPFpdz8i9iqBh\nirZchSweluroOWvEMTaaEOQzC4p83y88SK+hCVLerMEoafWr/kxzYGL8pbuummva\nxDhScpNKyY+5zXnDAIuKsq5e0aDulDoDoqg2g6LebS/jZ7JkycGnRzrk211TmR2W\nBJ7BKt0IwLMOd2R9t6jcDBHvwwZLDBh3X2UIn7GiyNEMOK5SkgAV6J0ygT300Wor\nrQlzz0BHAgMBAAECggEAIdfst+VuAcurdKUAD9EpkN8so4UUYCreGK401yTBQrfA\n+8uR893zqFSOORsf0pAQMuyDdV/zdZuR+jNfygQeRlPtcB/dp7+cHKUhZhmDle1x\nbM1xnp8cmv4jlel4+7bMjFQo2fI2cAvdQJwquZmgzOs0rrkgn3HUD32Lkg4L+7rm\nTCw3YSDL38fKi/AxcLtp0XRlXgZJsIL6U7xPMbGwMTth2dSFU9hcXvIZO85uvGne\nc41AJNfils2fvls85BN6TlYD0sG3+zyEh4LzXLMgv/lfIP3ZCRjth1JUDv7mLG83\n9XU0ApEOed0RHsrBXbehiMK52gRhTx6dQjdx6RuZgQKBgQDg/wtU6zAXdxIO+O3n\nGJbWCHNia1D7DPvaMPP9VyR5TEjzlsT91RO3/Gbv6DSYEF/3pUuJenfPf1dIKUYr\nX2ZeOEU3gtVKKCCmBhhLZs02dAfnScMbYIjMfVzGNA12YgKPiVkkf4XDsqjr5EtI\n75gYSclfH7BY9B0Zn1KMD9tqxwKBgQDRsyE4hMUZDyPyoqLsfR0wkAqK3BwvaRMM\nWJfkfSngn/Irbq4Cmzx0RXB3cr0ENnBbJENSd2vp3N0IdGlsEAF/EfTfz19ZYSwV\naWkJUpdPXOP0fHmdyf+9gl8ysGH4M2AKW0kXBx3B7XQ6oW0OwZsD/DvyZzgUNKnM\nUvI4tkv+gQKBgFYTPFKQZyWS9+WideEjFxFqyjmstJ5WqUMf1zfkTp/Y/0+xLkut\naI3KkdbWDsjd+tjS88L0h0FqhgmlQKL3LEJ/ZHuIIfDsyRC65DB0c62RVjS1k161\n35/bldJ9t2jCthgTg3bjEll70APuop6UiqtADznE9cISIc/bk8jhiB+hAoGBALXA\nDhEQckwv5TZNY+yY3A3VKm4ELKGi7pGKz8uH+B3qQ1kFiuhTZ+hWrw24cr8N9//m\nxDrbqrp9ZU4Ip76zeLiL9bNt5vRu1miQfitIXEC7ABBNOpNaGsBEGQK0AZW/4YPY\nbtb4ogANMOoIM5/QiezAV6zXbbGFm42ubqZcyi0BAoGAXjPUlTkZWPY0WBatt3fX\nJv0e5emV56IEpDocC65xWC2r7fUc8NMAi6xMFXThWe4RPv/SZ0Nul9roHUVP+BNB\nkiPw0MxttAD1NaXnIjLs9W/SCZSX5GgjQLEpSPROiqzEYaScGX1LYqlx9AlYBQi+\niMOgugT8OeMsjXnBJBmuNOs=\n-----END PRIVATE KEY-----\n",
+  "client_email": "parcialinfra@infraestructura-ti-286120.iam.gserviceaccount.com",
+  "client_id": "117544951915357698936",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/parcialinfra%40infraestructura-ti-286120.iam.gserviceaccount.com"
+}
