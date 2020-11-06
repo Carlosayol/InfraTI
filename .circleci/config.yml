@@ -49,12 +49,15 @@ workflows:
   version: 2.1
   build:
     jobs:
-      - Production:
-          filters:
-            branches:
-              only: master
       - Development:
           filters:
             branches:
-              only: master            
-          
+              only: master
+      - Manual-Approval:
+        type: approval
+        requires:
+          - Development
+      - Production :
+          filters:
+            branches:
+              only: master                        
