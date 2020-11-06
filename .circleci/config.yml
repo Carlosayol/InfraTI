@@ -10,6 +10,9 @@ jobs:
       - VM_NAME: "nfs"
     steps:
       - checkout
+      - add_ssh_keys:
+          fingerprints:
+           - "c1:9c:8a:41:1a:38:42:16:b3:d1:1e:48:ac:c6:30:4d"
       - run: 
           name: Setup Google Cloud SDK
           command: |
