@@ -1,4 +1,4 @@
-version: 2.1
+version: 2
 jobs:
   Development:
     docker:
@@ -20,10 +20,11 @@ jobs:
       - run: 
           name: Test
           command: |
-          cd ${HOME}/hola 
+            cd ${HOME}/hola 
             
   
 workflows:
+version: 2
   build:
     jobs:
       - Development:
