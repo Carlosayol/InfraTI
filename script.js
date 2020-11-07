@@ -11,7 +11,7 @@ if (slider) {
 
     if (activeItem.index() !== sliderItemsLength - 1) {
       activeItem.next().trigger('click');
-    } else {
+    } lse {
       sliderControls.children().first().trigger('click');
     }
 
