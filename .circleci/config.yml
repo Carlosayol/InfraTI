@@ -25,7 +25,7 @@ jobs:
             apt-get install -y npm
             npm -v 
             npm -g install acorn
-            ls 
+            acorn --silent script.js
             gcloud --quiet beta compute ssh --zone ${GOOGLE_COMPUTE_ZONE} ${VM_NAME} --project ${GOOGLE_PROJECT_ID} --ssh-flag="-t" --command="cd /var/www/InfraTI && git pull origin master;pwd"
 
   Production:
